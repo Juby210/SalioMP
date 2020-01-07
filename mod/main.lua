@@ -1,4 +1,5 @@
 function init()
+  drawText(20, 20, 13, "SalioMP v0.2")
   file = io.open("p1.txt", "w")
   file:write(getPlayerX() .. "\n" .. getPlayerY())
   file:close()
