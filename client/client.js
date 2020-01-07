@@ -10,6 +10,7 @@ module.exports = ({ saliopath, ip }) => {
   const pathes = {
     p1:     join(saliopath, 'p1.txt'),
     p2:     join(saliopath, 'p2.txt'),
+    level:  join(saliopath, 'level.txt'),
     data:   join(mod,       'data.salio'),
     levels: join(mod,       'levels'),
     lzip:   join(mod,       'levels.zip')
@@ -18,6 +19,7 @@ module.exports = ({ saliopath, ip }) => {
   if(!fs.existsSync(saliopath)) fs.mkdirSync(saliopath)
   if(!fs.existsSync(pathes.p2)) fs.openSync(pathes.p2, 'w')
   fs.writeFileSync(pathes.p2, `-18\n-18`)
+  if(!fs.existsSync(pathes.level)) fs.openSync(pathes.level, 'w')
 
   const socket = require('socket.io-client')(ip)
   socket.on('connect', () => {
@@ -47,14 +49,14 @@ module.exports = ({ saliopath, ip }) => {
   })
 
   socket.on('playermove', data => {
-    if(!fs.existsSync(saliopath + '/p2.txt')) fs.openSync(saliopath + '/p2.txt', 'w')
-    fs.writeFileSync(saliopath + '/p2.txt', `${data.x}\n${data.y}`)
+    if(!fs.existsSync(pathes.p2)) fs.openSync(pathes.p2, 'w')
+    fs.writeFileSync(pathes.p2, `${data.x}\n${data.y}`)
     console.log(`p2; ${data.x} | ${data.y}`)
   })
 
-  if(!fs.existsSync(saliopath + '/p1.txt')) fs.openSync(saliopath + '/p1.txt', 'w')
-  fs.watchFile(saliopath + '/p1.txt', { interval: 10 }, () => {
-    let content = fs.readFileSync(saliopath + '/p1.txt', 'utf-8').toString()
+  if(!fs.existsSync(pathes.p1)) fs.openSync(pathes.p1, 'w')
+  fs.watchFile(pathes.p1, { interval: 10 }, () => {
+    let content = fs.readFileSync(pathes.p1, 'utf-8').toString()
     let x = content.split('\n')[0]
     if(!x) return
     x = x.replace('\r', '')
