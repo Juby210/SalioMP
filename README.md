@@ -1,7 +1,7 @@
 # SalioMP
-Modification for [Salio](https://store.steampowered.com/app/875810/Salio) for multiplayer
+[Salio](https://store.steampowered.com/app/875810/Salio) Multiplayer Mod
 
-This is alpha version, lags, only player position synced and support only 2 players!
+This is alpha version, only player position & levels synced and support only 2 players!
 
 
 ### How to use?
@@ -20,4 +20,4 @@ On your friend pc:
 - Move `mod/data.salio` to salio in workshop menu
 
 Optional step:
-Change `data.salio` and `mod/levels` to your levels
+Change `server/data.salio` and `server/levels.zip` to your levels
