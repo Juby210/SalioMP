@@ -17,7 +17,7 @@ module.exports = ({saliopath, ip}) => {
   })
 
   if(!fs.existsSync(saliopath + "/p1.txt")) fs.openSync(saliopath + "/p1.txt", "w")
-  fs.watchFile(saliopath + "/p1.txt", { interval: 1000 }, () => {
+  fs.watchFile(saliopath + "/p1.txt", { interval: 10 }, () => {
     let content = fs.readFileSync(saliopath + "/p1.txt", "utf-8").toString()
     let x = content.split('\n')[0]
     if(!x) return

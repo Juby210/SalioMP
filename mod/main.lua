@@ -3,7 +3,7 @@ function init()
   file:write(getPlayerX() .. "\n" .. getPlayerY())
   file:close()
   p2 = newObject('player.png', -18, -18)
-  setUpdate(2) -- probably not working function
+  setUpdate(10)
 end
 
 function update()
@@ -12,8 +12,10 @@ function update()
   file:close()
 
   local lines = lines_from("p2.txt")
-  setObjectX(p2, lines[1])
-  setObjectY(p2, lines[2])
+  if table.getn(lines) == 2 then
+    setObjectX(p2, lines[1])
+    setObjectY(p2, lines[2])
+  end
 end
 
 function getKey(id)
