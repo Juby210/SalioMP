@@ -1,7 +1,7 @@
 _waiting = true
 
 function init()
-  drawText(20, 20, 13, "SalioMP v0.2.1")
+  drawText(20, 20, 13, "SalioMP v0.2.2")
   writeAll()
 
   setPlayerX(-18)

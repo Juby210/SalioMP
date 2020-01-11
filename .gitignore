@@ -1,5 +1,11 @@
 node_modules
 package-lock.json
 pnpm-lock.yaml
+
+*.exe
+go.sum
+cfg.json
+client/config.json
+
 mod/data.salio
 mod/levels
