@@ -5,13 +5,14 @@ This is alpha version, only player position & levels synced and support only 2 p
 
 ### How to use?
 ##### Server
-- Run `npm install` in server directory
+- Download latest server (`SalioMP_Server.exe`) from [releases](https://github.com/juby210-PL/SalioMP/releases)
+- Save [this example config](https://raw.githubusercontent.com/juby210-PL/SalioMP/master/server/config.json) as `config.json`
 - *Optional*: edit `config.json`, `data.salio` and `levels.zip` (zipped `levels`)
-- Run `node server/server.js`
+- Run `SalioMP_Server.exe`
 
 ##### Client
-- Download latest client from [releases](https://github.com/juby210-PL/SalioMP/releases)
-- Save [this example config](https://raw.githubusercontent.com/juby210-PL/SalioMP/master/client/config.example.json) to `config.json`
+- Download latest client (`SalioMP.exe`) from [releases](https://github.com/juby210-PL/SalioMP/releases)
+- Save [this example config](https://raw.githubusercontent.com/juby210-PL/SalioMP/master/client/config.example.json) as `config.json`
 - Edit `SalioPath` to salio installation directory
 - Edit `IP` to your IP
 - Run `SalioMP.exe`

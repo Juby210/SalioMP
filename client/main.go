@@ -39,8 +39,8 @@ func main() {
 	if isNotExist(pathes["p1"]) {
 		os.Create(pathes["p1"])
 	}
-	if isNotExist(pathes["level"]) {
-		os.Create(pathes["level"])
+	if isNotExist(pathes["mdata"]) {
+		os.Create(pathes["mdata"])
 	}
 	ioutil.WriteFile(pathes["p2"], []byte("-18\n-18"), 0644)
 
@@ -154,7 +154,7 @@ func getPathes() map[string]string {
 	return map[string]string{
 		"p1":     path.Join(smp, "p1.txt"),
 		"p2":     path.Join(smp, "p2.txt"),
-		"level":  path.Join(smp, "level.txt"),
+		"mdata":  path.Join(smp, "mdata.txt"),
 		"data":   path.Join(mod, "data.salio"),
 		"levels": path.Join(mod, "levels"),
 		"lzip":   path.Join(mod, "levels.zip"),

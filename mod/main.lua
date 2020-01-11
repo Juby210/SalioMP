@@ -1,7 +1,7 @@
 _waiting = true
 
 function init()
-  drawText(20, 20, 13, "SalioMP v0.2.2")
+  drawText(20, 20, 13, "SalioMP v0.2.3")
   writeAll()
 
   setPlayerX(-18)
@@ -51,10 +51,10 @@ function writeP1()
 end
 
 function writeLevel()
-  level = getLevelNumber()
-  file = io.open("mp/level.txt", "w")
-  file:write(level)
-  file:close()
+  --level = getLevelNumber()
+  --file = io.open("mp/level.txt", "w")
+  --file:write(level)
+  --file:close()
 end
 
 function getKey(id)
