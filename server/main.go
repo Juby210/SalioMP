@@ -1,19 +1,19 @@
 /*
-    SalioMP_Server
-    Copyright (C) 2020 Juby210
+   SalioMP_Server
+   Copyright (C) 2020 Juby210
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 package main
@@ -53,6 +53,20 @@ func main() {
 		ch.Emit("config", config)
 	})
 
+	io.On("level", func(ch *sio.Channel, data interface{}) {
+		isp1, _ := isP1(ch)
+
+		if isp1 {
+			if p2 != nil {
+				p2.Emit("level", data)
+			}
+		} else {
+			if p1 != nil {
+				p1.Emit("level", data)
+			}
+		}
+	})
+
 	io.On("playermove", func(ch *sio.Channel, data pos) {
 		isp1, prefix := isP1(ch)
 		log.Printf("%s; %d | %d", prefix, data.X, data.Y)
@@ -74,23 +88,27 @@ func main() {
 			p1 = nil
 			if p2 != nil {
 				p2.Emit("playermove", pos{-18, -18})
+				p2.Emit("level", map[string]interface{}{"level": 0, "waiting": false})
 			}
 		} else {
 			p2 = nil
 			if p1 != nil {
 				p1.Emit("playermove", pos{-18, -18})
+				p1.Emit("level", map[string]interface{}{"level": 0, "waiting": false})
 			}
 		}
 	})
 
 	http.Handle("/socket.io/", io)
-	http.HandleFunc("/data.salio", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "data.salio")
-	})
-	http.HandleFunc("/levels.zip", func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/zip")
-		http.ServeFile(w, r, "levels.zip")
-	})
+	if config["syncLevels"].(bool) {
+		http.HandleFunc("/data.salio", func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, "data.salio")
+		})
+		http.HandleFunc("/levels.zip", func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "application/zip")
+			http.ServeFile(w, r, "levels.zip")
+		})
+	}
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "https://github.com/juby210-PL/SalioMP", http.StatusMovedPermanently)
 	})

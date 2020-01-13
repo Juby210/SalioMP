@@ -2,8 +2,11 @@ package main
 
 import (
 	"archive/zip"
+	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -68,4 +71,29 @@ func unzip(src string, dest string) ([]string, error) {
 func isNotExist(path string) bool {
 	_, err := os.Stat(path)
 	return os.IsNotExist(err)
+}
+
+func unmarshal(path string, out interface{}) error {
+	byteValue, err := ioutil.ReadFile(path)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(byteValue, out)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func marshal(path string, in interface{}) {
+	byteValue, err := json.Marshal(in)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = ioutil.WriteFile(path, byteValue, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
